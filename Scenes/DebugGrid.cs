@@ -1,14 +1,23 @@
 using Godot;
 using System.Linq;
 
+[Tool]
 public partial class DebugGrid : Node2D
 {
 	[Export]
 	public Grid Grid = ResourceLoader.Load("res://Resources/Grid.tres") as Grid;
 
+	[Export]
+	public bool Isometric = false;
+
 	public override void _Ready() {
 		GD.Print("[DEBUG] Grid size is ", Grid.Size);
 		GD.Print("[DEBUG] Cell size is ", Grid.CellSize);
+		if (Isometric)
+		{
+			DrawIsometric();
+			return;
+		}
 		DrawOrthogonal();
 	}
 
