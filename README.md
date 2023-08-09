@@ -1,9 +1,8 @@
 # Godot Grid Engine
 
-This is a plugin for Godot 4 which provides all of the constructs necessary to
-create turn-based games which play out on a grid-based board.
+A Godot library for games with grid-based movement.
 
-Uses Godot 4, C#, and 2D nodes (3D not supported).
+Uses Godot 4 and C#.
 
 ## Quick Start
 
@@ -17,6 +16,7 @@ Key Points:
 - Resources for Data, Nodes for Logic
 - See best practices in mobile-trpg README
 - UI events are emitted as Signals; user must handle all UI events.
+- No plans for 3D support.
 
 Hierarchy:
 - Grid (Resource, GlobalClass)
