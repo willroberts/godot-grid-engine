@@ -1,8 +1,8 @@
 using Godot;
 
 // The Grid class represents the spatial properties of a 2x2 grid.
-// This class contains no game logic and can be used with both orthogonal and
-// isometric perspectives.
+// This class is a static, data-only resource and contains no game logic.
+// Can be used in both orthogonal and isometric contexts.
 [GlobalClass]
 public partial class Grid : Resource
 {
