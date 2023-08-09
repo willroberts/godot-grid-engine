@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grid-engine", "grid-engine.csproj", "{DD7BD4D5-ED1B-41C4-9379-2F732F150168}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD7BD4D5-ED1B-41C4-9379-2F732F150168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD7BD4D5-ED1B-41C4-9379-2F732F150168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD7BD4D5-ED1B-41C4-9379-2F732F150168}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{DD7BD4D5-ED1B-41C4-9379-2F732F150168}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{DD7BD4D5-ED1B-41C4-9379-2F732F150168}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{DD7BD4D5-ED1B-41C4-9379-2F732F150168}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal
