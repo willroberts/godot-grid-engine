@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://di60kc62f2jdw"]
+[gd_scene load_steps=3 format=3 uid="uid://di60kc62f2jdw"]
+
+[ext_resource type="Script" path="res://Scenes/DebugGrid.cs" id="1_mwqj3"]
+[ext_resource type="Resource" uid="uid://dpqevjipob1he" path="res://Resources/Grid.tres" id="2_y7dt6"]
 
 [node name="DebugGrid" type="Node2D"]
+script = ExtResource("1_mwqj3")
+Grid = ExtResource("2_y7dt6")

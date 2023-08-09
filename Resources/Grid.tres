@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_goxhb")
 Size = Vector2i(8, 8)
-CellSize = Vector2i(16, 16)
+CellSize = Vector2i(64, 64)
