@@ -18,27 +18,21 @@ Key Points:
 - UI events are emitted as Signals; user must handle all UI events.
 - No plans for 3D support.
 
-Hierarchy:
-- Grid (Resource, GlobalClass)
-  Static data-only resource. Referenced by nodes. No inheritance.
-- GameBoard (Node2D)
-  Contains 1 or more GridLayer children.
-  Methods: DrawNeighbors, DrawPath
-  Exported Attributes: HighlightedTiles Tilemap, Arrow Tilemap
-  Contains Pathfinder (RefCounted) script
-  - GridLayer (Node2D)
-    Tracks `Dictionary<Vector2I, T>`, a mapping of grid cells to user-defined value types.
-    Should this correspond with Tilemap layers?
-	Signals: MoveFinished
-    Functions: IsOccupied(cell), ResetBoard()
-    Inhabitant Functions: Select, Deselect, Clear, Move, GetWalkableCells (FloodFill)
-    Input Events: Deselect inhabitant on user-defined input. Provide a method for users to call.
+Library Components:
+- Grid (Resource, GlobalClass): Static data-only resource. Referenced by nodes.
+- Board (Node2D): Contains 1 or more BoardLayer children.
+  - BoardLayer (Node2D): Maps grid cells to inhabitants, e.g. units.
+
+User Components (not included; signals and callbacks provided):
+- Units and animations
+- Level maps
+- UI elements
 
 #### --- Engine vs Game Boundary ---
 
 - Main
-  - GridEngine Content (GameBoard, GridLayer)
-    - UnitLayer (GridLayer)
+  - GridEngine Content (GameBoard, BoardLayer)
+    - UnitLayer (BoardLayer)
       - Unit (Path2D + PathFollow2D + Sprite + AnimationPlayer)
         Some Path components may move to UnitLayer; API TBD.
         Handles animations via PathFollow2D curve.
@@ -51,10 +45,16 @@ Hierarchy:
       Signals: Moved, Pressed emitted from UnhandledInput (move this)
       Input Events: Mouse movement, mouse click (both emit signals)
 
+## API Mapping
+
+GameBoard:OnCursorAcceptPressed -> BoardLayer:SelectOrMoveCallback
+GameBoard:OnCursorMoved -> BoardLayer:DrawPathCallback
+Pathfinder -> Pathfinder
+
 ## To Do
 
 - Implement multiple selection as an alternative to shortest path
-- Implement turn engine
+- Implement turn engine?
 
 ## License
 

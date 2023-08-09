@@ -47,7 +47,7 @@ public partial class Grid : Resource
 
     // Serializes grid coordinates as integers such that each cell is uniquely
     // represented. Useful when dealing with A* pathfinding.
-    public int CellToIndex(Vector2I coords)
+    public int ToIndex(Vector2I coords)
     {
         return coords.X + Size.X * coords.Y;
     }
