@@ -18,6 +18,11 @@ config/icon="res://icon.svg"
 
 project/assembly_name="grid-engine"
 
+[filesystem]
+
+import/blender/enabled=false
+import/fbx/enabled=false
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
