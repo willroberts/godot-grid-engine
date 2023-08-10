@@ -29,7 +29,7 @@ public partial class BoardLayer : Node2D
 	};
 
 	// FIXME: Can't allocate memory without knowing size of IOccupant struct.
-	private readonly Dictionary<Vector2I, Node2D> _cellContents = new();
+	private readonly System.Collections.Generic.Dictionary<Vector2I, IOccupant> _cellContents = new();
 	private IOccupant _selection = null;
 	private Array<Vector2I> _highlightCells = new();
 	private Pathfinder _pathfinder = null;
@@ -80,7 +80,7 @@ public partial class BoardLayer : Node2D
 			return;
 		}
 
-		_cellContents[cell] = (Node2D)occupant;
+		_cellContents[cell] = occupant;
 	}
 
 	public void Select(Vector2I cell)
@@ -98,7 +98,7 @@ public partial class BoardLayer : Node2D
 		if (IsOccupied(newCell) || !_highlightCells.Contains(newCell)) { return; }
 
 		_cellContents.Remove(_selection.GetCell());
-		_cellContents[newCell] = (Node2D)_selection;
+		_cellContents[newCell] = _selection;
 
 		ClearHighlight();
 		ClearPath();
