@@ -21,23 +21,6 @@ public partial class Grid : Resource
         return gridCoords * CellSize + (CellSize / 2);
     }
 
-    public Vector2 IsoDeltaToOrtho(Vector2 orthoCoords)
-    {
-        return new Vector2(
-            orthoCoords.X - orthoCoords.Y,
-            (orthoCoords.X + orthoCoords.Y) / 2
-        );
-    }
-
-    public Vector2 OrthoDeltaToIso(Vector2 isoCoords)
-    {
-        var foo = (isoCoords.X + isoCoords.Y * 2) / 2;
-        return new Vector2(
-            foo,
-            foo - isoCoords.X
-        );
-    }
-
     // Convert screen coordinates in pixels to grid cell coordinates.
     public Vector2I ScreenToGrid(Vector2 screenCoords)
     {

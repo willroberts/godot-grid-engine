@@ -56,7 +56,7 @@ public partial class DebugGrid : Node2D
 
 				Vector2 orthoPos = Grid.GridToScreen(new(x, y));
 				GD.Print("Ortho position: ", orthoPos);
-				rect.Position = Grid.OrthoDeltaToIso(orthoPos);
+				rect.Position = OrthoDeltaToIso(orthoPos);
 				GD.Print("Iso position: ", rect.Position);
 
 				rect.Size = Grid.CellSize;
@@ -69,4 +69,21 @@ public partial class DebugGrid : Node2D
 			}
 		}
 	}
+
+	public Vector2 IsoDeltaToOrtho(Vector2 orthoCoords)
+    {
+        return new Vector2(
+            orthoCoords.X - orthoCoords.Y,
+            (orthoCoords.X + orthoCoords.Y) / 2
+        );
+    }
+
+    public Vector2 OrthoDeltaToIso(Vector2 isoCoords)
+    {
+        var foo = (isoCoords.X + isoCoords.Y * 2) / 2;
+        return new Vector2(
+            foo,
+            foo - isoCoords.X
+        );
+    }
 }
