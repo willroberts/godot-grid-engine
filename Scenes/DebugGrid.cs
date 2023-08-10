@@ -15,24 +15,7 @@ public partial class DebugGrid : Node2D
 
 		GD.Print("[DEBUG] Grid size is ", Grid.Size);
 		GD.Print("[DEBUG] Cell size is ", Grid.CellSize);
-
-		// Test IsWithinBounds().
-		if (Grid.IsWithinBounds(Grid.Size))
-		{
-			GD.Print("[ERROR] Grid failed to detect out-of-bounds cell");
-		}
-
-		// Test Clamp().
-		if (!Grid.IsWithinBounds(Grid.Clamp(Grid.Size)))
-		{
-			GD.Print("[ERROR] Failed to clamp out-of-bounds cell");
-		}
-
-		// Test ToIndex().
-		if (Grid.ToIndex(new Vector2I(5, 5)) != 45)
-		{
-			GD.Print("[ERROR] Failed to convert coordinates to index");
-		}
+		TestGrid();
 
 		// Draw the grid.
 		if (Isometric)
@@ -114,5 +97,26 @@ public partial class DebugGrid : Node2D
 			foo,
 			foo - isoCoords.X
 		);
+	}
+
+	private void TestGrid()
+	{
+		// Test IsWithinBounds().
+		if (Grid.IsWithinBounds(Grid.Size))
+		{
+			GD.Print("[ERROR] Grid failed to detect out-of-bounds cell");
+		}
+
+		// Test Clamp().
+		if (!Grid.IsWithinBounds(Grid.Clamp(Grid.Size)))
+		{
+			GD.Print("[ERROR] Failed to clamp out-of-bounds cell");
+		}
+
+		// Test ToIndex().
+		if (Grid.ToIndex(new Vector2I(5, 5)) != 45)
+		{
+			GD.Print("[ERROR] Failed to convert coordinates to index");
+		}
 	}
 }

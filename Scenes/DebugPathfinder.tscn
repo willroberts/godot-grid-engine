@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dq1pi6nff4m6j"]
+
+[ext_resource type="Script" path="res://Scenes/DebugPathfinder.cs" id="1_krxd5"]
+
+[node name="DebugPathfinder" type="Node2D"]
+script = ExtResource("1_krxd5")
