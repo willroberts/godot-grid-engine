@@ -8,14 +8,8 @@ public interface IOccupant
 	bool ReadyToMove(); // TODO: Remove from API.
 }
 
-/*
-    Tracks `Dictionary<Vector2I, IOccupant>`, a mapping of grid cells to user-defined value types.
-    Should this correspond with Tilemap layers?
-	Signals: MoveFinished
-    Functions: IsOccupied(cell), ResetBoard()
-    Occupant Functions: Select, Deselect, Clear, Move, GetWalkableCells (FloodFill)
-    Input Events: Deselect occupant on user-defined input. Provide a method for users to call.
-*/
+// The BoardLayer class controls the occupants for a single layer in the grid.
+// Occupants use the `IOccupant` interface.
 public partial class BoardLayer : Node2D
 {
 	[Export]
@@ -34,16 +28,12 @@ public partial class BoardLayer : Node2D
 		Vector2I.Down
 	};
 
-	private Dictionary<Vector2I, IOccupant> _cellContents = new();
+	// FIXME: Can't allocate memory without knowing size of IOccupant struct.
+	private readonly Dictionary<Vector2I, IOccupant> _cellContents = new();
 	private IOccupant _selection = null;
 	private Array<Vector2I> _highlightCells = new();
 	private Pathfinder _pathfinder = null;
 	private Array<Vector2I> _currentPath = new();
-
-	public override void _Ready()
-	{
-
-	}
 	
 	public void HandleHover(Vector2I newCell)
 	{
@@ -68,7 +58,8 @@ public partial class BoardLayer : Node2D
 
 	public void HandleCancel()
 	{
-		Deselect();
+		ClearHighlight();
+		ClearPath();
 		ClearSelection();
 	}
 
@@ -99,28 +90,18 @@ public partial class BoardLayer : Node2D
 		_selection = _cellContents[cell];
 		_highlightCells = ComputeHighlight(cell, _selection.GetRange());
 		DrawHighlight(_highlightCells);
-		InitializePathfinder(_highlightCells);
-	}
-
-	public void Deselect()
-	{
-		ClearHighlight();
-		ClearPath();
+		ComputePath(_highlightCells);
 	}
 
 	public void MoveSelection(Vector2I newCell)
 	{
-		if (IsOccupied(newCell) || !_highlightCells.Contains(newCell))
-		{
-			return;
-		}
+		if (IsOccupied(newCell) || !_highlightCells.Contains(newCell)) { return; }
 
 		_cellContents.Remove(_selection.GetCell());
 		_cellContents[newCell] = _selection;
-		Deselect();
 
-		//_selection.WalkAlong/PlayAnimation.
-		//await ToSignal(_selection, "MoveFinished");
+		ClearHighlight();
+		ClearPath();
 		ClearSelection();
 	}
 
@@ -183,14 +164,9 @@ public partial class BoardLayer : Node2D
 	* Path mehthods show the shortest path between two cells.
 	*/
 
-	public void InitializePathfinder(Array<Vector2I> cells)
+	public void ComputePath(Array<Vector2I> cells)
 	{
 		_pathfinder = new Pathfinder(Grid, cells);
-	}
-
-	public void UpdatePath(Vector2I cell)
-	{
-
 	}
 	
 	public void DrawPath(Vector2I start, Vector2I end)

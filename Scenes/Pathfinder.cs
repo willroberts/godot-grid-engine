@@ -11,8 +11,8 @@ public partial class Pathfinder : RefCounted
         Vector2I.Down
     };
 
-    private Grid _grid;
-    private AStar2D _aStar = new();
+    private readonly Grid _grid;
+    private readonly AStar2D _aStar = new();
 
     public Pathfinder(Grid grid, Array<Vector2I> cells)
     {
