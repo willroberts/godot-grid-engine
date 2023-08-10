@@ -14,7 +14,7 @@ representation of a 2D grid. It is loaded by the other types.
 `Board` is a `Node2D` container type which serves as a wrapper around a
 `Dictionary` data structure to hold one or more `BoardLayer` values. Using
 multiple layers allows for the organization of differing types, such as
-separating movable units from items on the ground, for example.
+separating movable units from items on the ground.
 
 `BoardLayer` is another `Node2D` type which contains logic for interacting with
 occupants, cell highlighting, and pathfinding. At its core, `BoardLayer` is a
