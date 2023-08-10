@@ -4,26 +4,53 @@ A Godot library for games with grid-based movement.
 
 Uses Godot 4 and C#.
 
+## Library Design
+
+This library provides three public types: `Grid`, `Board`, and `BoardLayer`.
+
+`Grid` is a static, data-only `Resource` type which contains the basic
+representation of a 2D grid. It is loaded by the other types.
+
+`Board` is a `Node2D` container type which serves as a wrapper around a
+`Dictionary` data structure to hold one or more `BoardLayer` values. Using
+multiple layers allowed for the organization of differing types, such as
+separating movable units from items on the ground, for example.
+
+`BoardLayer` is another `Node2D` type which contains logic for interacting with
+occupants, cell highlighting, and pathfinding. At its core, `BoardLayer` is a
+wrapper around a `Dictionary` data structure containing values which implement
+the `IOccupant` interface, allowing you to provide your own types when adding
+content to a layer.
+
+`IOccupant` is a minimal interface to ensure `BoardLayer` occupants can be
+moved between grid cells. The interface contains the following methods:
+
+```cs
+public interface IOccupant
+{
+  Vector2I GetCell();
+  int GetRange();
+  bool ReadyToMove();
+}
+```
+
 ## Usage
 
-Library Components:
-- Grid (Resource, GlobalClass): Static data-only resource. Referenced by nodes.
-- Board (Node2D): Contains 1 or more BoardLayer children.
-- BoardLayer (Node2D): Maps grid cells to occupants, e.g. units.
+In order to get started, do the following:
 
-User-implemented Components (signals and/or callbacks provided):
-- Units using the IOccupant interface
-- Level tilemaps
-- UI elements
+1. Create a `Grid` resource based on the definition in `Grid.cs`.
+1. Instantiate a `Board` with one or more `BoardLayer` children.
+1. Implement an occupant type using the `IOccupant` interface.
+
+Once this is done, you can start filling out game content, such as tilemap
+levels or UI elements.
 
 ## To Do
 
-- Optimize for mouse and touchscreen control.
 - Integrate with Godot 4's tile system.
 - Emit UI events as Signals; user must handle all UI events.
   - Use `Callable` and `FuncRef` for callbacks on Signals
   - Consider the Signal Bus pattern (autoload singleton of Signals)
-- Implement all debug component scenes
 - Implement multiple selection as an alternative to shortest path
 - Implement turn engine
 
