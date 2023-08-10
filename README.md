@@ -42,8 +42,8 @@ In order to get started, do the following:
 1. Instantiate a `Board` with one or more `BoardLayer` children.
 1. Implement an occupant type using the `IOccupant` interface.
 
-Once this is done, you can start filling out game content, such as tilemap
-levels or UI elements.
+Once this is done, you can start adding units to the board, and connect `Input`
+signals to perform actions. See the `BoardLayer` interface for details.
 
 ## To Do
 
