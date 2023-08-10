@@ -38,7 +38,7 @@ public interface IOccupant
 
 In order to get started, do the following:
 
-1. Create a `Grid` resource based on the definition in `Grid.cs`.
+1. Create a `Grid` resource based on the definition in `Resources/Grid.cs`.
 1. Instantiate a `Board` with one or more `BoardLayer` children.
 1. Implement an occupant type using the `IOccupant` interface.
 
