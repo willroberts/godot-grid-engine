@@ -43,7 +43,8 @@ In order to get started, do the following:
 1. Implement an occupant type using the `IOccupant` interface.
 
 Once this is done, you can start adding units to the board, and connect `Input`
-signals to perform actions. See the `BoardLayer` interface for details.
+signals to perform actions. See the [`BoardLayer`](https://github.com/willroberts/godot-grid-engine/blob/main/Scenes/BoardLayer.cs)
+interface for details.
 
 ## To Do
 
