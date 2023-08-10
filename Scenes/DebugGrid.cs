@@ -26,16 +26,16 @@ public partial class DebugGrid : Node2D
 		DrawOrthogonal();
 	}
 
-    public override void _Input(InputEvent @event)
-    {
-        if (
+	public override void _Input(InputEvent @event)
+	{
+		if (
 			@event is InputEventMouseButton btn &&
 			btn.ButtonIndex == MouseButton.Left &&
 			btn.Pressed
 		) {
 			GD.Print("[DEBUG] Player clicked on cell ", Grid.ScreenToGrid(btn.Position));
 		}
-    }
+	}
 
 	private void DrawOrthogonal()
 	{
@@ -105,18 +105,23 @@ public partial class DebugGrid : Node2D
 		if (Grid.IsWithinBounds(Grid.Size))
 		{
 			GD.Print("[ERROR] Grid failed to detect out-of-bounds cell");
+			return;
 		}
 
 		// Test Clamp().
 		if (!Grid.IsWithinBounds(Grid.Clamp(Grid.Size)))
 		{
 			GD.Print("[ERROR] Failed to clamp out-of-bounds cell");
+			return;
 		}
 
 		// Test ToIndex().
 		if (Grid.ToIndex(new Vector2I(5, 5)) != 45)
 		{
 			GD.Print("[ERROR] Failed to convert coordinates to index");
+			return;
 		}
+
+		GD.Print("[DEBUG] Grid tests passsed");
 	}
 }
