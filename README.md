@@ -21,11 +21,9 @@ such as separating movable units from items on the ground.
 logic for interacting with occupants, cell highlighting, and pathfinding. At
 its core, `BoardLayer` is a wrapper around a `Dictionary` data structure
 containing values which implement the `IOccupant` interface, allowing you to
-provide your own types when adding content to a layer.
-
-[`IOccupant`](Scenes/BoardLayer.cs) is a minimal interface to ensure
-`BoardLayer` occupants can be moved between grid cells. The interface contains
-the following methods:
+provide your own types when adding content to a layer. `IOccupant` is a minimal
+interface to ensure `BoardLayer` occupants can be moved between grid cells. The
+interface contains the following methods:
 
 ```cs
 public interface IOccupant
