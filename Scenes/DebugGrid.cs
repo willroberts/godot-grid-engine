@@ -8,7 +8,7 @@ public partial class DebugGrid : Node2D
 	public Grid Grid = ResourceLoader.Load("res://Resources/Grid.tres") as Grid;
 
 	[Export]
-	public bool Isometric = true;
+	public bool Isometric = false;
 
 	public override void _Ready() {
 		GD.Print("[DEBUG] Grid size is ", Grid.Size);
@@ -54,19 +54,14 @@ public partial class DebugGrid : Node2D
 				// Draw cell outlines.
 				ReferenceRect rect = new();
 
-				//Vector2 orthoPos = Grid.GridToScreen(new(x, y));
-				//GD.Print("Ortho position: ", orthoPos);
-				//rect.Position = Grid.OrthoDeltaToIso(orthoPos);
-				//GD.Print("Iso position: ", rect.Position);
-
-				Vector2 isoPos = Grid.OrthoDeltaToIso(new(x, y));
-				GD.Print("Iso position: ", isoPos);
-				rect.Position = Grid.GridToScreen(isoPos);
-				GD.Print("Screen position: ", rect.Position);
+				Vector2 orthoPos = Grid.GridToScreen(new(x, y));
+				GD.Print("Ortho position: ", orthoPos);
+				rect.Position = Grid.OrthoDeltaToIso(orthoPos);
+				GD.Print("Iso position: ", rect.Position);
 
 				rect.Size = Grid.CellSize;
 				rect.RotationDegrees = 45.0F;
-				//rect.Scale = new Vector2(1.0F, 0.5F);
+				rect.Scale = new Vector2(1.0F, 0.5F);
 				rect.BorderColor = Colors.White;
 				rect.EditorOnly = false;
 				AddChild(rect);
