@@ -1,6 +1,5 @@
 using Godot;
 
-[Tool]
 public partial class DebugBoard : Node2D
 {
 	[Export]
@@ -15,16 +14,16 @@ public partial class DebugBoard : Node2D
 
 	private void TestBoard()
 	{
-		Board b = new();
-		if (b.GetLayers().Count != 0)
+		Board board = new();
+		if (board.GetLayers().Count != 0)
 		{
 			GD.Print("[ERROR] Board initialized in a non-empty state");
 			return;
 		}
 
-		BoardLayer l = new();
-		b.AddLayer("TestLayer", l);
-		if (b.GetLayers().Count != 1)
+		BoardLayer layer = new();
+		board.AddLayer("TestLayer", layer);
+		if (board.GetLayers().Count != 1)
 		{
 			GD.Print("[ERROR] Failed to add layer to board");
 			return;

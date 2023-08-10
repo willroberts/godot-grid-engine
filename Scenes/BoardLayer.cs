@@ -28,7 +28,6 @@ public partial class BoardLayer : Node2D
 		Vector2I.Down
 	};
 
-	// FIXME: Can't allocate memory without knowing size of IOccupant struct.
 	private readonly System.Collections.Generic.Dictionary<Vector2I, IOccupant> _cellContents = new();
 	private IOccupant _selection = null;
 	private Array<Vector2I> _highlightCells = new();

@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://bem7n0jhvv2n4"]
+
+[ext_resource type="PackedScene" uid="uid://di60kc62f2jdw" path="res://Scenes/DebugGrid.tscn" id="1_adyit"]
+[ext_resource type="PackedScene" uid="uid://kw0tml0j3jjs" path="res://Scenes/DebugBoard.tscn" id="2_la35u"]
+[ext_resource type="PackedScene" uid="uid://dg3pfi8suyths" path="res://Scenes/DebugBoardLayer.tscn" id="3_ofxhl"]
+[ext_resource type="PackedScene" uid="uid://dq1pi6nff4m6j" path="res://Scenes/DebugPathfinder.tscn" id="4_xm2vn"]
+[ext_resource type="Resource" uid="uid://dpqevjipob1he" path="res://Resources/Grid.tres" id="4_yyoqh"]
+
+[node name="Debug" type="Node2D"]
+
+[node name="DebugGrid" parent="." instance=ExtResource("1_adyit")]
+script = null
+
+[node name="DebugBoard" parent="." instance=ExtResource("2_la35u")]
+script = null
+
+[node name="DebugBoardLayer" parent="." instance=ExtResource("3_ofxhl")]
+Grid = ExtResource("4_yyoqh")
+
+[node name="DebugPathfinder" parent="." instance=ExtResource("4_xm2vn")]
+script = null

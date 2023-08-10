@@ -1,7 +1,6 @@
 using Godot;
 using System.Linq;
 
-[Tool]
 public partial class DebugGrid : Node2D
 {
 	[Export]

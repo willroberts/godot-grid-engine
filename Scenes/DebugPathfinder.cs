@@ -2,7 +2,6 @@ using Godot;
 using Godot.Collections;
 using System.Linq;
 
-[Tool]
 public partial class DebugPathfinder : Node2D
 {
 	[Export]
