@@ -8,7 +8,7 @@ public partial class DebugGrid : Node2D
 	public Grid Grid = ResourceLoader.Load("res://Resources/Grid.tres") as Grid;
 
 	[Export]
-	public bool Isometric = false;
+	public bool Isometric = true;
 
 	public override void _Ready() {
 		GD.Print("[DEBUG] Grid size is ", Grid.Size);
@@ -47,6 +47,21 @@ public partial class DebugGrid : Node2D
 
 	private void DrawIsometric()
 	{
-		// TBD.
+		foreach (int x in Enumerable.Range(0, Grid.Size.X))
+		{
+			foreach (int y in Enumerable.Range(0, Grid.Size.Y))
+			{
+				// Draw cell outlines.
+				ReferenceRect rect = new();
+				rect.Position = Grid.GridToScreen(new(x, y)) - Grid.CellSize / 2;
+				rect.Size = Grid.CellSize;
+				rect.RotationDegrees = 45.0F;
+				rect.Scale = new Vector2(1.0F, 0.5F);
+				rect.BorderColor = Colors.White;
+				rect.EditorOnly = false;
+				AddChild(rect);
+				
+			}
+		}
 	}
 }

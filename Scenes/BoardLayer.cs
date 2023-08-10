@@ -13,7 +13,7 @@ public interface IOccupant
 public partial class BoardLayer : Node2D
 {
 	[Export]
-	public Grid Grid = ResourceLoader.Load("res://Resources.Grid.tres") as Grid;
+	public Grid Grid = ResourceLoader.Load("res://Resources/Grid.tres") as Grid;
 
 	[Export]
 	public TileMap HighlightTiles;
@@ -29,7 +29,7 @@ public partial class BoardLayer : Node2D
 	};
 
 	// FIXME: Can't allocate memory without knowing size of IOccupant struct.
-	private readonly Dictionary<Vector2I, IOccupant> _cellContents = new();
+	private readonly Dictionary<Vector2I, Node2D> _cellContents = new();
 	private IOccupant _selection = null;
 	private Array<Vector2I> _highlightCells = new();
 	private Pathfinder _pathfinder = null;
@@ -80,14 +80,14 @@ public partial class BoardLayer : Node2D
 			return;
 		}
 
-		_cellContents[cell] = occupant;
+		_cellContents[cell] = (Node2D)occupant;
 	}
 
 	public void Select(Vector2I cell)
 	{
 		if (!_cellContents.ContainsKey(cell)) { return; }
 
-		_selection = _cellContents[cell];
+		_selection = (IOccupant)_cellContents[cell];
 		_highlightCells = ComputeHighlight(cell, _selection.GetRange());
 		DrawHighlight(_highlightCells);
 		ComputePath(_highlightCells);
@@ -98,7 +98,7 @@ public partial class BoardLayer : Node2D
 		if (IsOccupied(newCell) || !_highlightCells.Contains(newCell)) { return; }
 
 		_cellContents.Remove(_selection.GetCell());
-		_cellContents[newCell] = _selection;
+		_cellContents[newCell] = (Node2D)_selection;
 
 		ClearHighlight();
 		ClearPath();
