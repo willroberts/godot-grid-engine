@@ -47,11 +47,13 @@ public partial class DebugBoardLayer : Node2D
 		}
 
 		// Test highlight methods.
-		Array<Vector2I> result = layer.ComputeHighlight(Vector2I.Zero, 2); // FIXME: Failing.
+		// TODO: Add ComputeHighlight() validation for result.
+		Array<Vector2I> result = layer.ComputeHighlight(Vector2I.Zero, 2);
 		layer.DrawHighlight(result);
 		layer.ClearHighlight();
 
 		// Test path methods.
+		// TODO: Add DrawPath() validation for PathTiles.
 		Array<Vector2I> cells = new()
 		{
 			Vector2I.Zero,
@@ -72,7 +74,7 @@ public partial class DebugBoardLayer : Node2D
 			new Vector2I(3, 3)
 		};
 		layer.ComputePath(cells);
-		layer.DrawPath(Vector2I.Zero, new Vector2I(3, 3)); // FIXME: Failing.
+		layer.DrawPath(Vector2I.Zero, new Vector2I(3, 3));
 		layer.ClearPath();
 
 		GD.Print("[DEBUG] BoardLayer tests passed");
