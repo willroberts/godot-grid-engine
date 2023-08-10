@@ -10,9 +10,31 @@ public partial class DebugGrid : Node2D
 	[Export]
 	public bool Isometric = false;
 
-	public override void _Ready() {
+	public override async void _Ready() {
+		if (Grid == null) { await ToSignal(Grid, "ready"); }
+
 		GD.Print("[DEBUG] Grid size is ", Grid.Size);
 		GD.Print("[DEBUG] Cell size is ", Grid.CellSize);
+
+		// Test IsWithinBounds().
+		if (Grid.IsWithinBounds(Grid.Size))
+		{
+			GD.Print("[ERROR] Grid failed to detect out-of-bounds cell");
+		}
+
+		// Test Clamp().
+		if (!Grid.IsWithinBounds(Grid.Clamp(Grid.Size)))
+		{
+			GD.Print("[ERROR] Failed to clamp out-of-bounds cell");
+		}
+
+		// Test ToIndex().
+		if (Grid.ToIndex(new Vector2I(5, 5)) != 45)
+		{
+			GD.Print("[ERROR] Failed to convert coordinates to index");
+		}
+
+		// Draw the grid.
 		if (Isometric)
 		{
 			DrawIsometric();
@@ -20,6 +42,17 @@ public partial class DebugGrid : Node2D
 		}
 		DrawOrthogonal();
 	}
+
+    public override void _Input(InputEvent @event)
+    {
+        if (
+			@event is InputEventMouseButton btn &&
+			btn.ButtonIndex == MouseButton.Left &&
+			btn.Pressed
+		) {
+			GD.Print("[DEBUG] Player clicked on cell ", Grid.ScreenToGrid(btn.Position));
+		}
+    }
 
 	private void DrawOrthogonal()
 	{
@@ -53,12 +86,8 @@ public partial class DebugGrid : Node2D
 			{
 				// Draw cell outlines.
 				ReferenceRect rect = new();
-
 				Vector2 orthoPos = Grid.GridToScreen(new(x, y));
-				GD.Print("Ortho position: ", orthoPos);
 				rect.Position = OrthoDeltaToIso(orthoPos);
-				GD.Print("Iso position: ", rect.Position);
-
 				rect.Size = Grid.CellSize;
 				rect.RotationDegrees = 45.0F;
 				rect.Scale = new Vector2(1.0F, 0.5F);
@@ -71,19 +100,19 @@ public partial class DebugGrid : Node2D
 	}
 
 	public Vector2 IsoDeltaToOrtho(Vector2 orthoCoords)
-    {
-        return new Vector2(
-            orthoCoords.X - orthoCoords.Y,
-            (orthoCoords.X + orthoCoords.Y) / 2
-        );
-    }
+	{
+		return new Vector2(
+			orthoCoords.X - orthoCoords.Y,
+			(orthoCoords.X + orthoCoords.Y) / 2
+		);
+	}
 
-    public Vector2 OrthoDeltaToIso(Vector2 isoCoords)
-    {
-        var foo = (isoCoords.X + isoCoords.Y * 2) / 2;
-        return new Vector2(
-            foo,
-            foo - isoCoords.X
-        );
-    }
+	public Vector2 OrthoDeltaToIso(Vector2 isoCoords)
+	{
+		var foo = (isoCoords.X + isoCoords.Y * 2) / 2;
+		return new Vector2(
+			foo,
+			foo - isoCoords.X
+		);
+	}
 }
