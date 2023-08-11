@@ -51,14 +51,12 @@ public partial class Example : Node2D
 
 	private readonly Board _gameboard = new();
 	private readonly BoardLayer _unitLayer = new();
-	private readonly Dictionary<Vector2I, Unit> _units = new();
 
 	public override async void _Ready()
 	{
 		// Add a unit to a layer.
 		Vector2I position = new(3, 3);
 		Unit unit = new(position, UnitTexture);
-		_units.Add(position, unit);
 		_unitLayer.HighlightTiles = HighlightTiles;
 		_unitLayer.PathTiles = PathTiles;
 		_unitLayer.Add(unit, position);
