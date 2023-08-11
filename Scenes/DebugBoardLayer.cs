@@ -22,14 +22,14 @@ public partial class DebugBoardLayer : Node2D
 
 	private void TestBoardLayer()
 	{
-        BoardLayer layer = new()
-        {
-            HighlightTiles = new TileMap(),
-            PathTiles = new TileMap()
-        };
+		BoardLayer layer = new()
+		{
+			HighlightTiles = new TileMap(),
+			PathTiles = new TileMap()
+		};
 
-        // Test occupant methods.
-        TestOccupant occ = new();
+		// Test occupant methods.
+		TestOccupant occ = new();
 		layer.Add(occ, occ.GetCell());
 		if (!layer.IsOccupied(occ.GetCell()))
 		{
