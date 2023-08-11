@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 
 partial class Unit : Node2D, IOccupant
 {
@@ -28,12 +29,7 @@ partial class Unit : Node2D, IOccupant
     public Vector2I GetCell() { return _cell; }
 	public int GetRange() { return 3; }
 	public bool ReadyToMove() { return true; }
-
-	// Connects to BoardLayer's "MoveFinished" signal.
-	private void HandleMoveFinished(Vector2I newCell)
-	{
-		Position = _grid.GridToScreen(GetCell());
-	}
+	public void OnMoved(Vector2I newCell) { Position = _grid.GridToScreen(newCell); }
 }
 
 public partial class Example : Node2D
@@ -52,16 +48,19 @@ public partial class Example : Node2D
 
 	private readonly Board _gameboard = new();
 	private readonly BoardLayer _unitLayer = new();
+	private readonly Dictionary<Vector2I, Unit> _units = new();
 
 	public override async void _Ready()
 	{
 		// Add a unit to a layer.
 		Vector2I position = new(3, 3);
 		Unit unit = new(position, UnitTexture);
+		_units.Add(position, unit);
 		_unitLayer.HighlightTiles = HighlightTiles;
 		_unitLayer.PathTiles = PathTiles;
-		AddChild(unit);
 		_unitLayer.Add(unit, position);
+		_unitLayer.MoveFinished += unit.OnMoved;
+		AddChild(unit);
 
 		// Add the unit layer to the board.
 		if (_gameboard == null) { await ToSignal(_gameboard, "ready"); }
@@ -71,6 +70,7 @@ public partial class Example : Node2D
 	public override void _Input(InputEvent @event)
 	{
 		if (
+			_unitLayer != null &&
 			@event is InputEventMouseButton btn &&
 			btn.ButtonIndex == MouseButton.Left &&
 			btn.Pressed

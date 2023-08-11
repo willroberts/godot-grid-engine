@@ -98,7 +98,6 @@ public partial class BoardLayer : Node2D
 
 		_cellContents.Remove(_selection.GetCell());
 		_cellContents[newCell] = _selection;
-		GD.Print("Unit moved from ", _selection.GetCell(), " to ", newCell);
 
 		ClearHighlight();
 		ClearPath();
