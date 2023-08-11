@@ -14,16 +14,6 @@ partial class Unit : Node2D, IOccupant
     public override void _Ready()
     {
 		Position = _grid.GridToScreen(GetCell());
-		GD.Print("Position: ", Position);
-
-        ReferenceRect rect = new()
-        {
-            Position = Position,
-            Size = new Vector2(64, 64),
-            BorderColor = Colors.Red,
-			ZIndex = 1
-        };
-        AddChild(rect);
 
 		if (_texture != null) {
 			Sprite2D sprite = new(){
@@ -38,6 +28,12 @@ partial class Unit : Node2D, IOccupant
     public Vector2I GetCell() { return _cell; }
 	public int GetRange() { return 3; }
 	public bool ReadyToMove() { return true; }
+
+	// Connects to BoardLayer's "MoveFinished" signal.
+	private void HandleMoveFinished(Vector2I newCell)
+	{
+		Position = _grid.GridToScreen(GetCell());
+	}
 }
 
 public partial class Example : Node2D
@@ -48,6 +44,12 @@ public partial class Example : Node2D
 	[Export]
 	public Texture2D UnitTexture;
 
+	[Export]
+	public TileMap HighlightTiles;
+
+	[Export]
+	public TileMap PathTiles;
+
 	private readonly Board _gameboard = new();
 	private readonly BoardLayer _unitLayer = new();
 
@@ -56,6 +58,8 @@ public partial class Example : Node2D
 		// Add a unit to a layer.
 		Vector2I position = new(3, 3);
 		Unit unit = new(position, UnitTexture);
+		_unitLayer.HighlightTiles = HighlightTiles;
+		_unitLayer.PathTiles = PathTiles;
 		AddChild(unit);
 		_unitLayer.Add(unit, position);
 
@@ -72,7 +76,6 @@ public partial class Example : Node2D
 			btn.Pressed
 		) {
 			Vector2I cell = Grid.ScreenToGrid(btn.Position);
-			GD.Print("Selecting cell ", cell);
 			_unitLayer.HandleClick(cell);
 			GetViewport().SetInputAsHandled();
 		}

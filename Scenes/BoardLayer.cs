@@ -12,6 +12,9 @@ public interface IOccupant
 // Occupants use the `IOccupant` interface.
 public partial class BoardLayer : Node2D
 {
+	[Signal]
+	public delegate void MoveFinishedEventHandler(Vector2I newCell);
+
 	[Export]
 	public Grid Grid = ResourceLoader.Load("res://Resources/Grid.tres") as Grid;
 
@@ -43,8 +46,6 @@ public partial class BoardLayer : Node2D
 
 	public void HandleClick(Vector2I cell)
 	{
-		GD.Print("_selection: ", _selection);
-
 		if (_selection == null)
 		{
 			Select(cell);
@@ -79,34 +80,16 @@ public partial class BoardLayer : Node2D
 		}
 
 		_cellContents[cell] = occupant;
-		foreach ( Vector2I k in _cellContents.Keys )
-		{
-			GD.Print("_cellContents:add:", k, ":", _cellContents[k]);
-		}
 	}
 
 	public void Select(Vector2I cell)
 	{
-		foreach ( Vector2I k in _cellContents.Keys )
-		{
-			GD.Print("_cellContents:select:", k, ":", _cellContents[k]);
-		}
-		GD.Print("ContainsKey: ", _cellContents.ContainsKey(cell));
+		if (!_cellContents.ContainsKey(cell)) { return; }
 
-		if (!_cellContents.ContainsKey(cell)) {
-			GD.Print("Missing key"); // FIXME
-			return;
-		}
-
-		GD.Print(2);
 		_selection = _cellContents[cell];
-		GD.Print(3);
 		_highlightCells = ComputeHighlight(cell, _selection.GetRange());
-		GD.Print(4);
 		DrawHighlight(_highlightCells);
-		GD.Print(5);
 		ComputePath(_highlightCells);
-		GD.Print(6);
 	}
 
 	public void MoveSelection(Vector2I newCell)
@@ -115,10 +98,13 @@ public partial class BoardLayer : Node2D
 
 		_cellContents.Remove(_selection.GetCell());
 		_cellContents[newCell] = _selection;
+		GD.Print("Unit moved from ", _selection.GetCell(), " to ", newCell);
 
 		ClearHighlight();
 		ClearPath();
 		ClearSelection();
+
+		EmitSignal("MoveFinished", newCell);
 	}
 
 	public void ClearSelection()
@@ -164,6 +150,7 @@ public partial class BoardLayer : Node2D
 	
 	public void DrawHighlight(Array<Vector2I> cells)
 	{
+		if (HighlightTiles == null) { return; }
 		ClearHighlight();
 		foreach (Vector2I cell in cells)
 		{
@@ -173,6 +160,7 @@ public partial class BoardLayer : Node2D
 	
 	public void ClearHighlight()
 	{
+		if (HighlightTiles == null) { return; }
 		HighlightTiles.Clear();
 	}
 
@@ -187,7 +175,7 @@ public partial class BoardLayer : Node2D
 	
 	public void DrawPath(Vector2I start, Vector2I end)
 	{
-		PathTiles.Clear();
+		if (PathTiles != null) { PathTiles.Clear(); }
 		_currentPath = _pathfinder.GetPointPath(start, end);
 
 		if (_currentPath.Count == 0)
@@ -196,6 +184,7 @@ public partial class BoardLayer : Node2D
 			return;
 		}
 
+		if (PathTiles == null) { return; }
 		foreach (Vector2I cell in _currentPath)
 		{
 			PathTiles.SetCell(0, cell, 0, Vector2I.Zero, 0);
@@ -206,6 +195,6 @@ public partial class BoardLayer : Node2D
 	public void ClearPath()
 	{
 		_pathfinder = null;
-		PathTiles.Clear();
+		if (PathTiles != null) { PathTiles.Clear(); }
 	}
 }
