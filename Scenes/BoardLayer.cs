@@ -43,16 +43,15 @@ public partial class BoardLayer : Node2D
 
 	public void HandleClick(Vector2I cell)
 	{
+		GD.Print("_selection: ", _selection);
+
 		if (_selection == null)
 		{
 			Select(cell);
 			return;
 		}
 
-		if (_selection.ReadyToMove())
-		{
-			MoveSelection(cell);
-		}
+		if (_selection.ReadyToMove()) { MoveSelection(cell); }
 	}
 
 	public void HandleCancel()
@@ -80,16 +79,34 @@ public partial class BoardLayer : Node2D
 		}
 
 		_cellContents[cell] = occupant;
+		foreach ( Vector2I k in _cellContents.Keys )
+		{
+			GD.Print("_cellContents:add:", k, ":", _cellContents[k]);
+		}
 	}
 
 	public void Select(Vector2I cell)
 	{
-		if (!_cellContents.ContainsKey(cell)) { return; }
+		foreach ( Vector2I k in _cellContents.Keys )
+		{
+			GD.Print("_cellContents:select:", k, ":", _cellContents[k]);
+		}
+		GD.Print("ContainsKey: ", _cellContents.ContainsKey(cell));
 
-		_selection = (IOccupant)_cellContents[cell];
+		if (!_cellContents.ContainsKey(cell)) {
+			GD.Print("Missing key"); // FIXME
+			return;
+		}
+
+		GD.Print(2);
+		_selection = _cellContents[cell];
+		GD.Print(3);
 		_highlightCells = ComputeHighlight(cell, _selection.GetRange());
+		GD.Print(4);
 		DrawHighlight(_highlightCells);
+		GD.Print(5);
 		ComputePath(_highlightCells);
+		GD.Print(6);
 	}
 
 	public void MoveSelection(Vector2I newCell)
