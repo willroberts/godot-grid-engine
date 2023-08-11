@@ -9,7 +9,8 @@ public partial class DebugGrid : Node2D
 	[Export]
 	public bool Isometric = false;
 
-	public override async void _Ready() {
+	public override async void _Ready()
+	{
 		if (Grid == null) { await ToSignal(Grid, "ready"); }
 
 		GD.Print("[DEBUG] Grid size is ", Grid.Size);
@@ -31,7 +32,8 @@ public partial class DebugGrid : Node2D
 			@event is InputEventMouseButton btn &&
 			btn.ButtonIndex == MouseButton.Left &&
 			btn.Pressed
-		) {
+		)
+		{
 			GD.Print("[DEBUG] Player clicked on cell ", Grid.ScreenToGrid(btn.Position));
 		}
 	}
@@ -51,7 +53,7 @@ public partial class DebugGrid : Node2D
 				AddChild(rect);
 
 				// Draw cell labels.
-				if (Grid.CellSize < new Vector2I(40, 40)) { return ; }
+				if (Grid.CellSize < new Vector2I(40, 40)) { return; }
 				Label label = new();
 				label.Position = Grid.GridToScreen(new(x, y)) - Grid.CellSize / 2;
 				label.Text = new Vector2I(x, y).ToString();
@@ -76,7 +78,7 @@ public partial class DebugGrid : Node2D
 				rect.BorderColor = Colors.White;
 				rect.EditorOnly = false;
 				AddChild(rect);
-				
+
 			}
 		}
 	}

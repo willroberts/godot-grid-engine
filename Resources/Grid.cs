@@ -42,7 +42,7 @@ public partial class Grid : Resource
     // Clamp the given coordinates to the bounds of the grid.
     public Vector2I Clamp(Vector2I coords)
     {
-        return coords.Clamp(Vector2I.Zero, new(Size.X-1, Size.Y-1));
+        return coords.Clamp(Vector2I.Zero, new(Size.X - 1, Size.Y - 1));
     }
 
     // Serializes grid coordinates as integers such that each cell is uniquely

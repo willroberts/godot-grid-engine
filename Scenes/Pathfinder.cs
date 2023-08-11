@@ -74,11 +74,11 @@ public partial class Pathfinder : RefCounted
     // Useful when dealing with A*, which returns Vector2 values.
     private Array<Vector2I> UnpackArray(Vector2[] input)
     {
-            Array<Vector2I> converted = new();
-            foreach (Vector2 value in input)
-            {
-                converted.Add(new Vector2I((int)value.X, (int)value.Y));
-            }
-            return converted;
+        Array<Vector2I> converted = new();
+        foreach (Vector2 value in input)
+        {
+            converted.Add(new Vector2I((int)value.X, (int)value.Y));
+        }
+        return converted;
     }
 }

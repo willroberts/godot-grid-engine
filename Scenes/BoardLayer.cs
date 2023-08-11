@@ -36,7 +36,7 @@ public partial class BoardLayer : Node2D
 	private Array<Vector2I> _highlightCells = new();
 	private Pathfinder _pathfinder = null;
 	private Array<Vector2I> _currentPath = new();
-	
+
 	public void HandleHover(Vector2I newCell)
 	{
 		if (_selection == null) { return; }
@@ -146,7 +146,7 @@ public partial class BoardLayer : Node2D
 
 		return result;
 	}
-	
+
 	public void DrawHighlight(Array<Vector2I> cells)
 	{
 		if (HighlightTiles == null) { return; }
@@ -156,7 +156,7 @@ public partial class BoardLayer : Node2D
 			HighlightTiles.SetCell(0, cell, 0, Vector2I.Zero, 0);
 		}
 	}
-	
+
 	public void ClearHighlight()
 	{
 		if (HighlightTiles == null) { return; }
@@ -171,7 +171,7 @@ public partial class BoardLayer : Node2D
 	{
 		_pathfinder = new Pathfinder(Grid, cells);
 	}
-	
+
 	public void DrawPath(Vector2I start, Vector2I end)
 	{
 		if (PathTiles != null) { PathTiles.Clear(); }

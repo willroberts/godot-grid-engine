@@ -7,26 +7,29 @@ partial class Unit : Node2D, IOccupant
 	private Vector2I _cell = Vector2I.Zero;
 	private readonly Texture2D _texture;
 
-	public Unit(Vector2I cell, Texture2D texture) {
+	public Unit(Vector2I cell, Texture2D texture)
+	{
 		_cell = cell;
 		_texture = texture;
 	}
 
-    public override void _Ready()
-    {
+	public override void _Ready()
+	{
 		Position = _grid.GridToScreen(GetCell());
 
-		if (_texture != null) {
-			Sprite2D sprite = new(){
+		if (_texture != null)
+		{
+			Sprite2D sprite = new()
+			{
 				Texture = _texture,
 				ZIndex = 1,
 				Scale = new Vector2(0.5F, 0.5F)
 			};
 			AddChild(sprite);
 		}
-    }
+	}
 
-    public Vector2I GetCell() { return _cell; }
+	public Vector2I GetCell() { return _cell; }
 	public int GetRange() { return 3; }
 	public bool ReadyToMove() { return true; }
 	public void OnMoved(Vector2I newCell) { Position = _grid.GridToScreen(newCell); }
@@ -74,7 +77,8 @@ public partial class Example : Node2D
 			@event is InputEventMouseButton btn &&
 			btn.ButtonIndex == MouseButton.Left &&
 			btn.Pressed
-		) {
+		)
+		{
 			Vector2I cell = Grid.ScreenToGrid(btn.Position);
 			_unitLayer.HandleClick(cell);
 			GetViewport().SetInputAsHandled();

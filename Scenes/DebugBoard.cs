@@ -8,7 +8,7 @@ public partial class DebugBoard : Node2D
 	public override async void _Ready()
 	{
 		if (Grid == null) { await ToSignal(Grid, "ready"); }
-		
+
 		TestBoard();
 	}
 
