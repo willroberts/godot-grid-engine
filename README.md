@@ -46,6 +46,9 @@ Once this is done, you can start adding units to the board, and connect `Input`
 signals to perform actions. See the [`BoardLayer`](https://github.com/willroberts/godot-grid-engine/blob/main/Scenes/BoardLayer.cs)
 interface for details.
 
+There is an end-to-end example in the [`Example/`](Example) directory.
+Specifically, see [`Example.cs`](Example/Example.cs).
+
 ## To Do
 
 - Integrate with Godot 4's tile system.
