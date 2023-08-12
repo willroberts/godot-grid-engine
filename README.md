@@ -48,6 +48,9 @@ interface for details.
 
 ## To Do
 
+- Finish example
+  - Highlight tiles
+  - Path tiles
 - Integrate with Godot 4's tile system.
 - Emit UI events as Signals; user must handle all UI events.
   - Use `Callable` and `FuncRef` for callbacks on Signals

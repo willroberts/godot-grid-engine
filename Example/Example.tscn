@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://co2200qyu256f"]
+[gd_scene load_steps=13 format=3 uid="uid://co2200qyu256f"]
 
 [ext_resource type="Script" path="res://Example/Example.cs" id="1_w0bks"]
 [ext_resource type="Resource" uid="uid://dpqevjipob1he" path="res://Resources/Grid.tres" id="2_tghra"]
 [ext_resource type="Texture2D" uid="uid://beha8hbd7edvw" path="res://icon.svg" id="3_3eu6l"]
 [ext_resource type="Texture2D" uid="uid://bfn0sfgjs64vw" path="res://Example/tiles.png" id="3_fk1xr"]
+[ext_resource type="Texture2D" uid="uid://00eot2umnx3o" path="res://Example/highlightTiles.png" id="5_dhppo"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_dvidm"]
 tile_data = PackedInt32Array(0, 65539, 0, 65536, 131075, 0, 1, 131075, 0, 65537, 65539, 0)
@@ -31,13 +32,31 @@ pattern_0 = SubResource("TileMapPattern_dvidm")
 pattern_1 = SubResource("TileMapPattern_hyvwx")
 pattern_2 = SubResource("TileMapPattern_0rn8d")
 
-[node name="Example" type="Node2D"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_23qg7"]
+texture = ExtResource("5_dhppo")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_a7uq1"]
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetAtlasSource_23qg7")
+
+[node name="Example" type="Node2D" node_paths=PackedStringArray("HighlightTiles")]
 script = ExtResource("1_w0bks")
 Grid = ExtResource("2_tghra")
 UnitTexture = ExtResource("3_3eu6l")
+HighlightTiles = NodePath("HighlightTiles")
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="Map" type="TileMap" parent="."]
 scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_b61pe")
 format = 2
 layer_0/tile_data = PackedInt32Array(0, 65539, 0, 65536, 131075, 0, 131072, 65539, 0, 196608, 131075, 0, 262144, 65539, 0, 327680, 131075, 0, 393216, 65539, 0, 458752, 131075, 0, 524288, 65539, 0, 589824, 131075, 0, 1, 131075, 0, 65537, 65539, 0, 131073, 131075, 0, 196609, 65539, 0, 262145, 131075, 0, 327681, 65539, 0, 393217, 131075, 0, 458753, 65539, 0, 524289, 131075, 0, 589825, 65539, 0, 2, 65539, 0, 65538, 131075, 0, 131074, 65539, 0, 196610, 131075, 0, 262146, 65539, 0, 327682, 131075, 0, 393218, 65539, 0, 458754, 131075, 0, 524290, 65539, 0, 589826, 131075, 0, 3, 131075, 0, 65539, 65539, 0, 131075, 131075, 0, 196611, 65539, 0, 262147, 131075, 0, 327683, 65539, 0, 393219, 131075, 0, 458755, 65539, 0, 524291, 131075, 0, 589827, 65539, 0, 4, 65539, 0, 65540, 131075, 0, 131076, 65539, 0, 196612, 131075, 0, 262148, 65539, 0, 327684, 131075, 0, 393220, 65539, 0, 458756, 131075, 0, 524292, 65539, 0, 589828, 131075, 0, 5, 131075, 0, 65541, 65539, 0, 131077, 131075, 0, 196613, 65539, 0, 262149, 131075, 0, 327685, 65539, 0, 393221, 131075, 0, 458757, 65539, 0, 524293, 131075, 0, 589829, 65539, 0, 6, 65539, 0, 65542, 131075, 0, 131078, 65539, 0, 196614, 131075, 0, 262150, 65539, 0, 327686, 131075, 0, 393222, 65539, 0, 458758, 131075, 0, 524294, 65539, 0, 589830, 131075, 0, 7, 131075, 0, 65543, 65539, 0, 131079, 131075, 0, 196615, 65539, 0, 262151, 131075, 0, 327687, 65539, 0, 393223, 131075, 0, 458759, 65539, 0, 524295, 131075, 0, 589831, 65539, 0, 8, 65539, 0, 65544, 131075, 0, 131080, 65539, 0, 196616, 131075, 0, 262152, 65539, 0, 327688, 131075, 0, 393224, 65539, 0, 458760, 131075, 0, 524296, 65539, 0, 589832, 131075, 0, 9, 131075, 0, 65545, 65539, 0, 131081, 131075, 0, 196617, 65539, 0, 262153, 131075, 0, 327689, 65539, 0, 393225, 131075, 0, 458761, 65539, 0, 524297, 131075, 0, 589833, 65539, 0)
+
+[node name="HighlightTiles" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_a7uq1")
+format = 2
+
+[node name="PathTiles" type="TileMap" parent="."]
+position = Vector2(0, -2)
+format = 2
