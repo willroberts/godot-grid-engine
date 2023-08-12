@@ -87,9 +87,9 @@ public partial class Example : Node2D
 	}
 
 	// _Input handles mouse movement and mouse clicks.
-	public override void _Input(InputEvent @event)
+	public override async void _Input(InputEvent @event)
 	{
-		if (_unitLayer == null) { return; }
+		if (_unitLayer == null) { await ToSignal(_unitLayer, "ready"); }
 
 		// Handle mouse click.
 		if (@event is InputEventMouseButton btn && btn.ButtonIndex == MouseButton.Left && btn.Pressed)
