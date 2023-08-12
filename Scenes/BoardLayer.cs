@@ -3,9 +3,15 @@ using Godot.Collections;
 
 public interface IOccupant
 {
-	Vector2I GetCell(); // TODO: Remove from API if possible.
+	// GetCell should return the Occupant's current position. This is used when
+	// moving Occupants, or when pathfinding for an Occupant.
+	Vector2I GetCell();
+
+	// GetRange determines how far the Occupant can move by restricting pathfinding.
 	int GetRange();
-	bool ReadyToMove(); // TODO: Remove from API.
+
+	// ReadyToMove provides an opportunity to prevent an Occupant's movement.
+	bool ReadyToMove();
 }
 
 // The BoardLayer class controls the occupants for a single layer in the grid.

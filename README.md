@@ -28,8 +28,14 @@ interface contains the following methods:
 ```cs
 public interface IOccupant
 {
+  // GetCell should return the Occupant's current position. This is used when
+  // moving Occupants, or when pathfinding for an Occupant.
   Vector2I GetCell();
+
+  // GetRange determines how far the Occupant can move by restricting pathfinding.
   int GetRange();
+
+  // ReadyToMove provides an opportunity to prevent an Occupant's movement.
   bool ReadyToMove();
 }
 ```
@@ -47,7 +53,9 @@ signals to perform actions. See the [`BoardLayer`](https://github.com/willrobert
 interface for details.
 
 There is an end-to-end example in the [`Example/`](Example) directory.
-Specifically, see [`Example.cs`](Example/Example.cs).
+Specifically, see [`Example.cs`](Example/Example.cs) and the accompanying scene.
+To reproduce this in the editor, you will need to create tilesets for each
+tilemap. Be sure to add a terrain layer to the `PathTiles` tileset.
 
 ## To Do
 
