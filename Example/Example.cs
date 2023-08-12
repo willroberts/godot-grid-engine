@@ -20,16 +20,13 @@ partial class Unit : Node2D, IOccupant
 	{
 		Position = _grid.GridToScreen(GetCell());
 
-		if (_texture != null)
+		if (_texture == null) { return; }
+		AddChild(new Sprite2D()
 		{
-			Sprite2D sprite = new()
-			{
-				Texture = _texture,
-				ZIndex = (int)ZOrder.Unit,
-				Scale = new Vector2(0.5F, 0.5F)
-			};
-			AddChild(sprite);
-		}
+			Texture = _texture,
+			ZIndex = (int)ZOrder.Unit,
+			Scale = new Vector2(0.5F, 0.5F)
+		});
 	}
 
 	// Defining these methods implements the IOccupant interface.
@@ -92,13 +89,10 @@ public partial class Example : Node2D
 	// _Input handles mouse movement and mouse clicks.
 	public override void _Input(InputEvent @event)
 	{
+		if (_unitLayer == null) { return; }
+
 		// Handle mouse click.
-		if (
-			_unitLayer != null &&
-			@event is InputEventMouseButton btn &&
-			btn.ButtonIndex == MouseButton.Left &&
-			btn.Pressed
-		)
+		if (@event is InputEventMouseButton btn && btn.ButtonIndex == MouseButton.Left && btn.Pressed)
 		{
 			_unitLayer.HandleClick(Grid.ScreenToGrid(btn.Position));
 			GetViewport().SetInputAsHandled();
