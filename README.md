@@ -52,6 +52,7 @@ interface for details.
   - Highlight tiles
   - Path tiles
 - Integrate with Godot 4's tile system.
+  - Allow better customization of layer, source, and tile atlas IDs.
 - Emit UI events as Signals; user must handle all UI events.
   - Use `Callable` and `FuncRef` for callbacks on Signals
   - Consider the Signal Bus pattern (autoload singleton of Signals)

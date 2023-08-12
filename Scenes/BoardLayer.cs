@@ -131,7 +131,7 @@ public partial class BoardLayer : Node2D
 			if (result.Contains(currentCell)) { continue; }
 
 			Vector2I difference = (currentCell - cell).Abs();
-			int distance = difference.X - difference.Y;
+			int distance = difference.X + difference.Y;
 			if (distance > range) { continue; }
 
 			result.Add(currentCell);
@@ -149,7 +149,12 @@ public partial class BoardLayer : Node2D
 
 	public void DrawHighlight(Array<Vector2I> cells)
 	{
-		if (HighlightTiles == null) { return; }
+		if (HighlightTiles == null)
+		{
+			GD.Print("HighlightTiles are null; skipping highlighting");
+			return;
+		}
+
 		ClearHighlight();
 		foreach (Vector2I cell in cells)
 		{
@@ -174,7 +179,13 @@ public partial class BoardLayer : Node2D
 
 	public void DrawPath(Vector2I start, Vector2I end)
 	{
-		if (PathTiles != null) { PathTiles.Clear(); }
+		if (PathTiles == null)
+		{
+			GD.Print("PathTiles are null; skipping path drawing");
+			return;
+		}
+
+		PathTiles.Clear();
 		_currentPath = _pathfinder.GetPointPath(start, end);
 
 		if (_currentPath.Count == 0)

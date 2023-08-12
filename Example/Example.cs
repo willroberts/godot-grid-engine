@@ -1,6 +1,8 @@
 using Godot;
 using Godot.Collections;
 
+enum ZOrder { Map, Highlight, Path, Unit }
+
 partial class Unit : Node2D, IOccupant
 {
 	private readonly Grid _grid = ResourceLoader.Load("res://Resources/Grid.tres") as Grid;
@@ -22,7 +24,7 @@ partial class Unit : Node2D, IOccupant
 			Sprite2D sprite = new()
 			{
 				Texture = _texture,
-				ZIndex = 1,
+				ZIndex = (int)ZOrder.Unit,
 				Scale = new Vector2(0.5F, 0.5F)
 			};
 			AddChild(sprite);
@@ -32,7 +34,12 @@ partial class Unit : Node2D, IOccupant
 	public Vector2I GetCell() { return _cell; }
 	public int GetRange() { return 3; }
 	public bool ReadyToMove() { return true; }
-	public void OnMoved(Vector2I newCell) { Position = _grid.GridToScreen(newCell); }
+
+	public void OnMoved(Vector2I newCell)
+	{
+		_cell = newCell;
+		Position = _grid.GridToScreen(newCell);
+	}
 }
 
 public partial class Example : Node2D
@@ -51,6 +58,7 @@ public partial class Example : Node2D
 
 	private readonly Board _gameboard = new();
 	private readonly BoardLayer _unitLayer = new();
+	private Vector2I _hoveredCell = Vector2I.Zero;
 
 	public override async void _Ready()
 	{
@@ -70,6 +78,7 @@ public partial class Example : Node2D
 
 	public override void _Input(InputEvent @event)
 	{
+		// Handle mouse click.
 		if (
 			_unitLayer != null &&
 			@event is InputEventMouseButton btn &&
@@ -80,6 +89,16 @@ public partial class Example : Node2D
 			Vector2I cell = Grid.ScreenToGrid(btn.Position);
 			_unitLayer.HandleClick(cell);
 			GetViewport().SetInputAsHandled();
+			return;
+		}
+
+		// Handle mouse motion.
+		if (@event is InputEventMouseMotion evt)
+		{
+			Vector2I hoveredCell = Grid.Clamp(Grid.ScreenToGrid(evt.Position));
+			if (hoveredCell.Equals(_hoveredCell)) { return; }
+			_hoveredCell = hoveredCell;
+			_unitLayer.HandleHover(_hoveredCell);
 		}
 	}
 }
