@@ -55,12 +55,12 @@ public partial class Example : Node2D
 	// HighlightTiles are used to highlight walkable cells when a Unit is selected.
 	// This tileset only needs to contain a single tile.
 	[Export]
-	public TileMap HighlightTiles;
+	public TileMapLayer HighlightTiles;
 
 	// PathTiles are used to draw an arrow from the Unit to the hovered cell.
 	// PathTiles require a TerrainSet with a 3x3 "match corners and sides" bitmask.
 	[Export]
-	public TileMap PathTiles;
+	public TileMapLayer PathTiles;
 
 	private readonly Board _gameboard = new();
 	private readonly BoardLayer _unitLayer = new();

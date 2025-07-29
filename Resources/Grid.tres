@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Grid" load_steps=2 format=3 uid="uid://dpqevjipob1he"]
 
-[ext_resource type="Script" path="res://Resources/Grid.cs" id="1_goxhb"]
+[ext_resource type="Script" uid="uid://jogld686rk3h" path="res://Resources/Grid.cs" id="1_goxhb"]
 
 [resource]
 script = ExtResource("1_goxhb")

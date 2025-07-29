@@ -25,10 +25,10 @@ public partial class BoardLayer : Node2D
 	public Grid Grid = ResourceLoader.Load("res://Resources/Grid.tres") as Grid;
 
 	[Export]
-	public TileMap HighlightTiles;
+	public TileMapLayer HighlightTiles;
 
 	[Export]
-	public TileMap PathTiles;
+	public TileMapLayer PathTiles;
 
 	private readonly Vector2I[] Directions = {
 		Vector2I.Left,
@@ -164,7 +164,7 @@ public partial class BoardLayer : Node2D
 		ClearHighlight();
 		foreach (Vector2I cell in cells)
 		{
-			HighlightTiles.SetCell(0, cell, 0, Vector2I.Zero, 0);
+			HighlightTiles.SetCell(cell, 0, Vector2I.Zero, 0);
 		}
 	}
 
@@ -203,9 +203,9 @@ public partial class BoardLayer : Node2D
 		if (PathTiles == null) { return; }
 		foreach (Vector2I cell in _currentPath)
 		{
-			PathTiles.SetCell(0, cell, 0, Vector2I.Zero, 0);
+			PathTiles.SetCell(cell, 0, Vector2I.Zero, 0);
 		}
-		PathTiles.SetCellsTerrainConnect(0, _currentPath, 0, 0);
+		PathTiles.SetCellsTerrainConnect(_currentPath, 0, 0);
 	}
 
 	public void ClearPath()

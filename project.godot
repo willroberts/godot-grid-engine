@@ -11,7 +11,8 @@ config_version=5
 [application]
 
 config/name="grid-engine"
-config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
+run/main_scene="uid://co2200qyu256f"
+config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]

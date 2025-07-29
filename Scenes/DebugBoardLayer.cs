@@ -24,8 +24,8 @@ public partial class DebugBoardLayer : Node2D
 	{
 		BoardLayer layer = new()
 		{
-			HighlightTiles = new TileMap(),
-			PathTiles = new TileMap()
+			HighlightTiles = new TileMapLayer(),
+			PathTiles = new TileMapLayer()
 		};
 
 		// Test occupant methods.
